@@ -3,11 +3,22 @@ from abc import ABC, abstractmethod
 from pathlib import Path
 from typing import Any, Callable
 
+import anomed_challenge
 import anomed_utils
 import numpy as np
+import pandas as pd
 import requests
 from art.estimators import BaseEstimator
 from art.estimators.classification import ClassifierMixin
+
+__all__ = [
+    "ARTWrapper",
+    "pickle_deanonymizer",
+    "SupervisedLearningMIA",
+    "TabularDataReidentificationAttack",
+    "unpickle_deanonymizer",
+    "WebClassifier",
+]
 
 
 class SupervisedLearningMIA(ABC):
@@ -287,3 +298,42 @@ def unpickle_deanonymizer(filepath: str | Path) -> Any:
     """
     with open(filepath, "rb") as file:
         return pickle.load(file)
+
+
+class TabularDataReidentificationAttack(ABC):
+    """A base class for re-identification attacks that process anonymized data
+    (created by subclasses of `TabularDataAnonymizer`) and background knowledge.
+
+    The goal of data re-identification attacks is to re-construct the data as
+    close as possible to the original/leaky data, that has been processed by the
+    `TabularDataAnonymizer`. Background knowledge may be used too.
+
+    Subclasses need to define a way to re-construct/re-identify the original
+    data from anonymized data and background knowledge.
+    """
+
+    @abstractmethod
+    def reidentify(
+        self,
+        anonymized_data: pd.DataFrame,
+        anonymization_scheme: anomed_challenge.AnonymizationScheme,
+        background_knowledge: pd.DataFrame,
+    ) -> pd.DataFrame:
+        """Re-identify original/leaky tabular data from anonymized data and
+        background knowledge.
+
+        Parameters
+        ----------
+        anonymized_data : pd.DataFrame
+            The anonymized data, obeying the `anonymization_scheme`.
+        anonymization_scheme : anomed_challenge.AnonymizationScheme
+            The anonymization scheme `anonymized_data` follows.
+        background_knowledge : pd.DataFrame
+            Additional knowledge which may be used by this attack to re-identify
+            the original tabular data.
+        Returns
+        -------
+        pd.DataFrame
+            The re-identified data.
+        """
+        pass

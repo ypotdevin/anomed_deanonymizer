@@ -1,6 +1,7 @@
 from .deanonymizer import (
     ARTWrapper,
     SupervisedLearningMIA,
+    TabularDataReidentificationAttack,
     WebClassifier,
     pickle_deanonymizer,
     unpickle_deanonymizer,
@@ -17,6 +18,7 @@ __all__ = [
     "pickle_deanonymizer",
     "supervised_learning_MIA_server_factory",
     "SupervisedLearningMIA",
+    "TabularDataReidentificationAttack",
     "unpickle_deanonymizer",
     "validate_deanonymizer_input_or_raise",
     "WebClassifier",

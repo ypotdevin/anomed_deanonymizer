@@ -1,0 +1,40 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "anomed-deanonymizer"
+description = """
+A library aiding to create deanonymizers (attacks on privacy preserving machine
+learning models) for the AnoMed competition platform."""
+readme = "README.md"
+authors = [{ name = "Yannik Potdevin", email = "ypo.uzl@proton.me" }]
+maintainers = [{ name = "Yannik Potdevin", email = "ypo.uzl@proton.me" }]
+license = { file = "LICENSE" }
+requires-python = ">=3.10"
+version = "0.0.10"
+dependencies = [
+    "adversarial-robustness-toolbox~=1.19",
+    "anomed-utils",
+    "falcon~=4.0",
+    "numpy~=1.26",
+    "requests~=2.32",
+]
+classifiers = [
+    "Development Status :: 1 - Planning",
+    "Intended Audience :: Developers",
+]
+
+[project.optional-dependencies]
+dev = ["anomed-deanonymizer", "ruff~=0.7"]
+test = [
+    "anomed-deanonymizer",
+    "coverage~=7.6",
+    "pytest~=8.3",
+    "pytest-cov~=6.0",
+    "pytest-mock~=3.14",
+]
+
+[tool.coverage.run]
+branch = true
+source = ["anomed_deanonymizer"]

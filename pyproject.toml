@@ -12,7 +12,7 @@ authors = [{ name = "Yannik Potdevin", email = "ypo.uzl@proton.me" }]
 maintainers = [{ name = "Yannik Potdevin", email = "ypo.uzl@proton.me" }]
 license = { file = "LICENSE" }
 requires-python = ">=3.10"
-version = "0.0.10"
+version = "0.0.11"
 dependencies = [
     "adversarial-robustness-toolbox~=1.19",
     "anomed-utils",

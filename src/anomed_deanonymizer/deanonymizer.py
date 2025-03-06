@@ -9,6 +9,14 @@ import requests
 from art.estimators import BaseEstimator
 from art.estimators.classification import ClassifierMixin
 
+__all__ = [
+    "ARTWrapper",
+    "pickle_deanonymizer",
+    "SupervisedLearningMIA",
+    "unpickle_deanonymizer",
+    "WebClassifier",
+]
+
 
 class SupervisedLearningMIA(ABC):
     """A base class for membership inference attacks (MIA) on anonymizers

@@ -11,6 +11,12 @@ import requests
 
 from . import deanonymizer
 
+__all__ = [
+    "EvaluationResource",
+    "supervised_learning_MIA_server_factory",
+    "validate_deanonymizer_input_or_raise",
+]
+
 logger = logging.getLogger(__name__)
 
 

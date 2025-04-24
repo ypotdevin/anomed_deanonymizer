@@ -1,5 +1,6 @@
 import json
 import logging
+import os
 from datetime import datetime
 from pathlib import Path
 from typing import Callable
@@ -18,6 +19,8 @@ __all__ = [
 ]
 
 logger = logging.getLogger(__name__)
+ANONYMIZER_ID: str = os.getenv("ANONYMIZER_ID")  # type: ignore
+DEANONYMIZER_ID: str = os.getenv("DEANONYMIZER_ID")  # type: ignore
 
 
 class EvaluationResource:
@@ -168,8 +171,6 @@ def _is_older(dt1: datetime | None, dt2: datetime) -> bool:
 
 
 def supervised_learning_MIA_server_factory(
-    anonymizer_identifier: str,
-    deanonymizer_identifier: str,
     deanonymizer_obj: deanonymizer.SupervisedLearningMIA,
     model_filepath: str | Path,
     default_batch_size: int,
@@ -194,10 +195,6 @@ def supervised_learning_MIA_server_factory(
 
     Parameters
     ----------
-    anonymizer_identifier : str
-        The identifier of the anonymizer under attack.
-    deanonymizer_identifier : str
-        The identifier of `deanonymizer_obj`.
     deanonymizer_obj : deanonymizer.SupervisedLearningMIA
         A membership inference attack against an anonymizer, which is based on
         the supervised learning paradigm.
@@ -246,8 +243,8 @@ def supervised_learning_MIA_server_factory(
     app.add_route(
         "/evaluate",
         EvaluationResource(
-            anonymizer_identifier=anonymizer_identifier,
-            deanonymizer_identifier=deanonymizer_identifier,
+            anonymizer_identifier=ANONYMIZER_ID,
+            deanonymizer_identifier=DEANONYMIZER_ID,
             model_filepath=model_filepath,
             model_loader=model_loader,
             default_batch_size=default_batch_size,
